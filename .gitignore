@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+*.key
+*.p12
 
 # debug
 npm-debug.log*
@@ -39,3 +41,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# hardhat build artifacts and caches
+artifacts/
+cache/
+.hh-cache/
+
+# local secrets and keystores
+secrets/
+.secrets
+keystore/
+*.keystore
