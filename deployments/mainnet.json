@@ -1,0 +1,11 @@
+{
+  "chainId": 1329,
+  "rpcUrl": "https://evm-rpc.sei-apis.com",
+  "deployer": "0x2b9352591b8A3d63FaC2EFf2954F49f8E4f3F5BD",
+  "agent": "0x2b9352591b8A3d63FaC2EFf2954F49f8E4f3F5BD",
+  "factory": "0xD2649969B3ED972586b71C728be1166f5fF43ad1",
+  "token": "0x0000000000000000000000000000000000000000",
+  "oracle": "0xf3F6b996dEb6c56c41237c4B97D4cB0F7758Bc0a",
+  "marketDeployer": "0x900fc36eb8324A766C01239D175380Fbd25B5E4b",
+  "marketsWhitelist": []
+}

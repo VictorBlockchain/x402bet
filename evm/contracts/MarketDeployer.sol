@@ -14,6 +14,7 @@ contract MarketDeployer {
 
     function deployMarket(
         uint64 eventId,
+        address creator,
         uint8 tokenTypeCode,
         address token,
         uint16 feeBps,
@@ -28,6 +29,7 @@ contract MarketDeployer {
         Market.TokenType tt = tokenTypeCode == 0 ? Market.TokenType.Native : Market.TokenType.ERC20;
         Market m = new Market(
             factory,
+            creator,
             eventId,
             tt,
             token,

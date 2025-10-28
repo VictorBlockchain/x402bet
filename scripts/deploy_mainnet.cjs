@@ -1,10 +1,9 @@
-// Deploy using Hardhat runtime to avoid manual nonce/gas issues
-import fs from 'node:fs'
-import path from 'node:path'
-// Hardhat ESM: import ethers and network dynamically inside main()
+// CommonJS deployment script for Hardhat (works reliably with ethers plugin)
+const fs = require('fs')
+const path = require('path')
+const { ethers, network } = require('hardhat')
 
 async function main() {
-  const { ethers, network } = await import('hardhat')
   const [deployer, , agent] = await ethers.getSigners()
   const provider = ethers.provider
 
@@ -14,7 +13,7 @@ async function main() {
 
   // Mainnet deployment should not include a test token; use address(0)
   const tokenAddr = ethers.ZeroAddress
-  console.log('Skipping TestToken deployment; token set to address(0)')
+  console.log('Token set to address(0) for mainnet')
 
   // Deploy Factory
   const FactoryFactory = await ethers.getContractFactory('X402BetFactory', deployer)
@@ -33,13 +32,10 @@ async function main() {
   await (await factory.setMarketDeployer(marketDeployerAddr, { gasLimit: 200000 })).wait()
   console.log('Factory configured: marketDeployer -> MarketDeployer contract')
 
-  // Configure Oracle
-  const envOracle = process.env.ORACLE_ADDRESS && process.env.ORACLE_ADDRESS !== ''
-    ? process.env.ORACLE_ADDRESS
-    : null
+  // Configure Oracle: use env ORACLE_ADDRESS if provided, else deploy
+  const envOracle = process.env.ORACLE_ADDRESS && process.env.ORACLE_ADDRESS !== '' ? process.env.ORACLE_ADDRESS : null
   let oracleAddr = envOracle
   if (!envOracle || envOracle === ethers.ZeroAddress) {
-    // No external oracle provided; deploy our Oracle and set it in factory
     const OracleFactory = await ethers.getContractFactory('Oracle', deployer)
     const oracle = await OracleFactory.deploy(factoryAddr, { gasLimit: 6000000 })
     await oracle.waitForDeployment()
@@ -56,15 +52,15 @@ async function main() {
   await (await factory.setDefaultOracle(oracleAddr, { gasLimit: 200000 })).wait()
   console.log('Factory configured: defaultOracle ->', oracleAddr)
 
-  // Resolve RPC URL but do not write .env.local to avoid overwriting existing env
-  const rpcUrl = network.config.url || 'http://localhost:8546'
+  // Resolve RPC URL
+  const rpcUrl = network.config.url || 'https://evm-rpc.sei-apis.com'
 
-  // Write deployments/local.json
+  // Write deployments/mainnet.json
   const outDir = path.join(process.cwd(), 'deployments')
   fs.mkdirSync(outDir, { recursive: true })
+  const outFile = path.join(outDir, 'mainnet.json')
   const net = await provider.getNetwork()
-  const outFile = path.join(outDir, (net.chainId === 1329 ? 'mainnet.json' : net.chainId === 1328 ? 'testnet.json' : 'local.json'))
-  fs.writeFileSync(outFile, JSON.stringify({
+  const out = {
     chainId: net.chainId,
     rpcUrl,
     deployer: deployer.address,
@@ -73,8 +69,10 @@ async function main() {
     token: tokenAddr,
     oracle: oracleAddr,
     marketDeployer: marketDeployerAddr,
-  }, null, 2) + '\n', { encoding: 'utf8' })
-  console.log('Wrote deployments/' + path.basename(outFile))
+    marketsWhitelist: [],
+  }
+  fs.writeFileSync(outFile, JSON.stringify(out, null, 2) + '\n', { encoding: 'utf8' })
+  console.log('Wrote deployments/mainnet.json')
 }
 
 main().catch((err) => {

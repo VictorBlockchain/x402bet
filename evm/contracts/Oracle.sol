@@ -2,16 +2,7 @@
 pragma solidity ^0.8.20;
 
 import { IFactoryLite } from "./Interfaces.sol";
-
-interface IMarket {
-    function setScoresOracle(uint16 homeScore, uint16 awayScore) external;
-    function setSpreadTenthsOracle(int16 newSpreadTenths) external;
-    function eventId() external view returns (uint64);
-    function settled() external view returns (bool);
-    function homeScoreFinal() external view returns (uint16);
-    function awayScoreFinal() external view returns (uint16);
-    function setDisputeOracle(bool flag) external;
-}
+import { IMarket } from "./IMarket.sol";
 
 contract Oracle {
     address public owner;

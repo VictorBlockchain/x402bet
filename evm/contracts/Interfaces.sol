@@ -16,4 +16,5 @@ interface IERC20 {
 interface IFactoryLite {
     function updateUserBetAmount(address user, uint256 amount) external;
     function refundUserFee(address token, address payable to, uint256 amount) external;
+    function isAdmin(address a) external view returns (bool);
 }

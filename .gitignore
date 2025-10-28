@@ -52,3 +52,10 @@ secrets/
 .secrets
 keystore/
 *.keystore
+
+# local scripts not meant for commit
+scripts/deploy.js
+scripts/test_agent.js
+
+# hardhat local config (ignore tracked config file)
+hardhat.config.js

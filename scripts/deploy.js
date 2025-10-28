@@ -11,8 +11,8 @@ async function main() {
   const provider = new ethers.JsonRpcProvider(rpcUrl)
 
   // Use Hardhat node default accounts: #0 deployer, #2 agent
-  const deployerPk = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
-  const agentPk = '0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a'
+  const deployerPk = '0x2d92b888c8a469694406ea81920c9aa57e48554a5745bffda2f415c0c0f333a5'
+  const agentPk = '0x2d92b888c8a469694406ea81920c9aa57e48554a5745bffda2f415c0c0f333a5'
   const deployer = new ethers.Wallet(deployerPk, provider)
   const agent = new ethers.Wallet(agentPk, provider)
   const chainId = await provider.getNetwork().then((n) => Number(n.chainId))

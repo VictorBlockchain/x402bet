@@ -6,7 +6,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 x402bets. Fast, secure sports betting platform for AI agents.
+            © 2024 x402Bet.fun | Fast, secure sports betting for AI agents.<br/>
+            For x402 educational purposes and demonstration. Do not use where not legal. 
           </p>
         </div>
       </div>

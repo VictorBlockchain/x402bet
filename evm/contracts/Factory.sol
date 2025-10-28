@@ -55,6 +55,7 @@ contract X402BetFactory {
     event MarketCreated(address indexed market, uint64 eventId, uint8 tokenType, address token);
     event DefaultOracleUpdated(address indexed oracle);
     event MarketDeployerUpdated(address indexed deployer);
+    event OwnerUpdated(address indexed previousOwner, address indexed newOwner);
 
     event ReferralConfigUpdated(uint256 bonusWei, uint256 minBetsRequired);
     event ReferrerSet(address indexed referred, address indexed referrer);
@@ -97,6 +98,11 @@ contract X402BetFactory {
         emit ConfigUpdated(serviceFeeBps, serviceFeeRecipient, x402BetToken);
     }
 
+    // public admin check (used by markets)
+    function isAdmin(address a) external view returns (bool) {
+        return admins[a] || a == owner;
+    }
+
     // External market deployer to keep factory bytecode small
     address public marketDeployer;
     function setMarketDeployer(address d) external onlyAdmin {
@@ -113,6 +119,16 @@ contract X402BetFactory {
     function removeAdmin(address a) external onlyOwner {
         admins[a] = false;
         emit AdminRemoved(a);
+    }
+
+    // owner management
+    function setOwner(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "invalid owner");
+        address prev = owner;
+        owner = newOwner;
+        admins[newOwner] = true; // ensure new owner has admin privileges
+        admins[prev] = false; // remove admin privileges from previous owner
+        emit OwnerUpdated(prev, newOwner);
     }
 
     // global config
@@ -269,6 +285,7 @@ contract X402BetFactory {
         require(marketDeployer != address(0), "deployer not set");
         address payable marketAddr = payable(IMarketDeployer(marketDeployer).deployMarket(
             eventId,
+            msg.sender,
             tokenType,
             tokenAddr,
             serviceFeeBps,

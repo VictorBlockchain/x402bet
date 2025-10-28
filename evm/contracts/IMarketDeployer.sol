@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 interface IMarketDeployer {
     function deployMarket(
         uint64 eventId,
+        address creator,
         uint8 tokenTypeCode,
         address token,
         uint16 feeBps,

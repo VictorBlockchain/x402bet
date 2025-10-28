@@ -7,6 +7,7 @@ contract Market {
     enum TokenType { Native, ERC20 }
 
     address public factory;
+    address public creator;
     uint64 public eventId;
     bool public isOpen;
     bool public cancelled;
@@ -24,6 +25,8 @@ contract Market {
     mapping(address => mapping(uint16 => uint256)) public stakes; // bettor => selectionId => amount
     mapping(uint16 => uint256) public selectionBetCounts; // number of bets per selection
     mapping(address => uint256) public feesPaid; // cumulative fees paid by bettor within this market
+    mapping(address => bool) public hasStaked; // track if a bettor has any stake in this market
+    uint256 public uniqueBettorCount; // number of unique bettors
 
     // settlement & claims
     uint16 public winningSelection;
@@ -86,6 +89,7 @@ contract Market {
 
     constructor(
         address _factory,
+        address _creator,
         uint64 _eventId,
         TokenType _tokenType,
         address _token,
@@ -98,8 +102,10 @@ contract Market {
         address _oracle
     ) {
         require(_factory != address(0), "factory required");
+        require(_creator != address(0), "creator required");
         require(_feeRecipient != address(0), "fee recipient required");
         factory = _factory;
+        creator = _creator;
         eventId = _eventId;
         isOpen = true;
         tokenType = _tokenType;
@@ -133,6 +139,10 @@ contract Market {
         require(ok, "fee transfer failed");
         feesPaid[bettor] += fee;
 
+        if (!hasStaked[bettor]) {
+            hasStaked[bettor] = true;
+            uniqueBettorCount += 1;
+        }
         stakes[bettor][selectionId] += stake;
         selectionPools[selectionId] += stake;
         selectionBetCounts[selectionId] += 1;
@@ -167,6 +177,10 @@ contract Market {
         require(erc.transfer(feeRecipient, fee), "fee transfer failed");
         feesPaid[bettor] += fee;
 
+        if (!hasStaked[bettor]) {
+            hasStaked[bettor] = true;
+            uniqueBettorCount += 1;
+        }
         stakes[bettor][selectionId] += stake;
         selectionPools[selectionId] += stake;
         selectionBetCounts[selectionId] += 1;
@@ -195,6 +209,10 @@ contract Market {
         require(erc.transfer(feeRecipient, fee), "fee transfer failed");
         feesPaid[bettor] += fee;
 
+        if (!hasStaked[bettor]) {
+            hasStaked[bettor] = true;
+            uniqueBettorCount += 1;
+        }
         stakes[bettor][selectionId] += stake;
         selectionPools[selectionId] += stake;
         selectionBetCounts[selectionId] += 1;
@@ -270,7 +288,7 @@ contract Market {
         require(settled, "not settled");
         require(!inDispute, "in dispute");
         // 15-minute wait only applies to markets with eventId = 0
-        if (eventId == 0) {
+        if (eventId == 0 && !cancelled) {
             require(settlementTime > 0 && block.timestamp >= (uint256(settlementTime) + 15 minutes), "claim wait 15m");
         }
         require(!claimed[msg.sender], "already claimed");
@@ -350,8 +368,12 @@ contract Market {
         emit MarketClosed();
     }
 
-    // Cancel market: refunds stakes on claim; fees are not refunded under current design
-    function cancelMarket() external onlyAdmin {
+    // Cancel market: refunds stakes on claim; fees are refunded via factory
+    // Authorization: admin (queried via factory.isAdmin) OR creator if they are the sole bettor
+    function cancelMarket() external {
+        bool adminAuthorized = IFactoryLite(factory).isAdmin(msg.sender);
+        bool creatorAuthorized = (msg.sender == creator && hasStaked[creator] && uniqueBettorCount == 1);
+        require(adminAuthorized || creatorAuthorized, "not authorized to cancel");
         require(!settled, "already settled");
         isOpen = false;
         settled = true;

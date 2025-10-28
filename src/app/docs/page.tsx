@@ -1,4 +1,15 @@
+import mainnetDeployment from '../../../deployments/mainnet.json'
+
 export default function DocsPage() {
+  const factoryAddr = (mainnetDeployment as any)?.factory || ''
+  const oracleAddr = (mainnetDeployment as any)?.oracle || ''
+  const marketDeployerAddr = (mainnetDeployment as any)?.marketDeployer || ''
+  const tokenAddr = (mainnetDeployment as any)?.token || ''
+  const deployerAddr = (mainnetDeployment as any)?.deployer || ''
+  const agentAddr = (mainnetDeployment as any)?.agent || ''
+  const chainId = (mainnetDeployment as any)?.chainId || 1329
+  const explorerBase = 'https://seitrace.com/address/'
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-card via-card to-accent/20 px-6 py-10 pt-16">
       {/* Header */}
@@ -22,6 +33,71 @@ export default function DocsPage() {
       </div>
 
       <div className="space-y-8">
+        {/* Deployed Contracts (Mainnet) */}
+        <section className="group relative bg-gradient-to-br from-card via-card to-accent/20 border-2 border-primary/40 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/60 hover:scale-[1.01]">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-chart-1/20 to-primary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+          <h2 className="text-2xl font-black tracking-tight text-foreground uppercase mb-4">Deployed Contracts (Mainnet)</h2>
+          <p className="text-sm text-muted-foreground mb-4">Chain ID: {chainId}</p>
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-black uppercase tracking-wider">Factory</span>
+                <a className="text-xs text-primary underline" href={`${explorerBase}${factoryAddr}`} target="_blank" rel="noreferrer">Explorer</a>
+              </div>
+              <code className="text-xs break-all">{factoryAddr}</code>
+            </div>
+            <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-black uppercase tracking-wider">Oracle</span>
+                <a className="text-xs text-primary underline" href={`${explorerBase}${oracleAddr}`} target="_blank" rel="noreferrer">Explorer</a>
+              </div>
+              <code className="text-xs break-all">{oracleAddr}</code>
+            </div>
+            <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-black uppercase tracking-wider">MarketDeployer</span>
+                <a className="text-xs text-primary underline" href={`${explorerBase}${marketDeployerAddr}`} target="_blank" rel="noreferrer">Explorer</a>
+              </div>
+              <code className="text-xs break-all">{marketDeployerAddr}</code>
+            </div>
+            <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-black uppercase tracking-wider">x402Bet Token</span>
+                {tokenAddr && tokenAddr !== 'coming soon' ? (
+                  <a className="text-xs text-primary underline" href={`${explorerBase}${tokenAddr}`} target="_blank" rel="noreferrer">Explorer</a>
+                ) : (
+                  <span className="text-xs text-muted-foreground">native</span>
+                )}
+              </div>
+              <code className="text-xs break-all">{tokenAddr}</code>
+            </div>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-2 mt-4">
+            <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-black uppercase tracking-wider">Deployer</span>
+                <a className="text-xs text-primary underline" href={`${explorerBase}${deployerAddr}`} target="_blank" rel="noreferrer">Explorer</a>
+              </div>
+              <code className="text-xs break-all">{deployerAddr}</code>
+            </div>
+            <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-black uppercase tracking-wider">Agent (Reporter)</span>
+                <a className="text-xs text-primary underline" href={`${explorerBase}${agentAddr}`} target="_blank" rel="noreferrer">Explorer</a>
+              </div>
+              <code className="text-xs break-all">{agentAddr}</code>
+            </div>
+          </div>
+
+          <div className="mt-4 bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-black uppercase tracking-wider">JSON</span>
+              <span className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-2 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-lg">mainnet.json</span>
+            </div>
+            <pre className="text-xs overflow-x-auto"><code>{JSON.stringify(mainnetDeployment, null, 2)}</code></pre>
+          </div>
+        </section>
         {/* Overview Card */}
         <section className="group relative bg-gradient-to-br from-card via-card to-accent/20 border-2 border-primary/40 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/60 hover:scale-[1.01]">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-chart-1/20 to-primary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
@@ -62,6 +138,64 @@ export default function DocsPage() {
             </ul>
           </div>
 
+          {/* Admin & Oracle Controls */}
+          <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-5 shadow-md mb-6">
+            <h3 className="text-lg font-black uppercase tracking-tight text-foreground mb-2">Admin & Oracle Controls</h3>
+            <ul className="list-disc ml-6 space-y-2 text-foreground text-sm font-medium">
+              <li><span className="font-bold">Cancel Market</span>: admin (factory or fee recipient) can cancel anytime before settlement. Additionally, the <span className="font-bold">creator</span> can cancel if they are the <span className="font-bold">only bettor</span> on the market.</li>
+              <li><span className="font-bold">Finalize (Scores)</span>: the <code>oracle</code> calls <code>setScoresOracle(home, away)</code> to settle; admins can use <code>setScoresAdmin(home, away)</code> as a fallback.</li>
+              <li><span className="font-bold">Update Spread</span>: the <code>oracle</code> can adjust the spread pre‑settlement via <code>setSpreadTenthsOracle(newTenths)</code>.</li>
+            </ul>
+            <div className="grid gap-4 md:grid-cols-2 mt-4">
+              <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wider">Cancel Market (creator or admin)</span>
+                  <span className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-2 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-lg">Solidity</span>
+                </div>
+                <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
+
+const rpc = 'https://evm-rpc.sei-apis.com'
+const pk = process.env.USER_PK! // creator or admin
+const wallet = new ethers.Wallet(pk, new ethers.JsonRpcProvider(rpc))
+
+const marketAddr = '0xMarket...'
+const market = new ethers.Contract(marketAddr, [ 'function cancelMarket()' ], wallet)
+
+// If caller is admin: always allowed before settlement
+// If caller is creator: allowed when they are the sole bettor
+await (await market.cancelMarket()).wait()
+console.log('market cancelled')
+`}</code></pre>
+              </div>
+              <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wider">Finalize Scores & Update Spread</span>
+                  <span className="bg-gradient-to-r from-accent to-accent/80 text-accent-foreground px-2 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-lg">Solidity</span>
+                </div>
+                <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
+
+const rpc = 'https://evm-rpc.sei-apis.com'
+const oraclePk = process.env.ORACLE_PK!
+const oracle = new ethers.Wallet(oraclePk, new ethers.JsonRpcProvider(rpc))
+const marketAddr = '0xMarket...'
+
+const market = new ethers.Contract(marketAddr, [
+  'function setScoresOracle(uint16 home, uint16 away)',
+  'function setSpreadTenthsOracle(int16 newTenths)'
+], oracle)
+
+// Finalize with scores (oracle)
+await (await market.setScoresOracle(101, 99)).wait()
+console.log('settled with scores')
+
+// Adjust spread pre-settlement (oracle)
+await (await market.setSpreadTenthsOracle(25)).wait() // 2.5 points
+`}</code></pre>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">After cancellation or push, users call <code>claim()</code> to refund stakes. Agent fees are refunded by Factory per tracked totals.</p>
+          </div>
+
           {/* Refunds & Hooks */}
           <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-5 shadow-md">
             <h3 className="text-lg font-black uppercase tracking-tight text-foreground mb-2">Fee Refunds & Factory Hooks</h3>
@@ -79,7 +213,7 @@ export default function DocsPage() {
         {/* Endpoints */}
         <section className="space-y-6">
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-5 shadow-md">
-            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST /api/x402/market/ensure</h3>
+            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://x402bet.fun/api/x402/market/ensure</h3>
             <p className="text-sm font-medium text-foreground mb-4">Ensures a market exists for an event. If missing, returns a prepared <code>Factory.createMarket</code> transaction (unified create + initial bet).</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
@@ -111,7 +245,7 @@ export default function DocsPage() {
                 <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`{
   "exists": false,
   "factory": "0xFactory...",
-  "network": "sei-testnet",
+  "network": "sei-mainnet",
   "tx": { "to": "0xFactory...", "data": "0x...", "value": "100000000000000000" },
   "feeData": { "maxFeePerGas": "...", "maxPriorityFeePerGas": "..." },
   "gasEstimate": "...",
@@ -126,14 +260,14 @@ export default function DocsPage() {
                 <span className="text-xs text-muted-foreground font-medium">ensure → prepare → verify → sign & send</span>
               </div>
               <ul className="list-disc ml-6 space-y-2 text-foreground text-sm font-medium">
-                <li>Lookup by <code>eventId</code>. If the address is <code>0x0</code>, call <code>/api/x402/market/ensure</code> with full metadata to get a prepared <code>createMarket</code> transaction.</li>
+                <li>Lookup by <code>eventId</code>. If the address is <code>0x0</code>, call <code>https://x402bet.fun/api/x402/market/ensure</code> with full metadata to get a prepared <code>createMarket</code> transaction.</li>
                 <li>Native path: set <code>amount</code> and submit with <code>tx.value</code> &gt; 0. ERC20 path: set <code>amount</code> &gt; 0 and <span className="font-bold">approve Factory</span> as spender beforehand.</li>
-                <li>After creation succeeds, re‑query the market address by <code>eventId</code> (or slug) and use <code>/api/x402/market/prepare</code> for subsequent bets.</li>
+                <li>After creation succeeds, re‑query the market address by <code>eventId</code> (or slug) and use <code>https://x402bet.fun/api/x402/market/prepare</code> for subsequent bets.</li>
                 <li><span className="font-bold">Selection mapping</span>: <code>initialSelection</code> accepts "home"/"away" or a specific <code>uint16</code> ID. For prepare/bet, "home" → <code>1</code>, "away" → <code>2</code> by default unless overridden by contract config.</li>
               </ul>
             </div>
-            
-            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST /api/x402/market/prepare</h3>
+            <br/>
+            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://x402bet.fun/api/x402/market/prepare</h3>
             <p className="text-sm font-medium text-foreground mb-4">Builds a signerless transaction to place a bet on a whitelisted market.</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
@@ -156,7 +290,7 @@ export default function DocsPage() {
                 </div>
                 <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`{
   "agent": "0xAgentAddress...",
-  "network": "sei-testnet",
+  "network": "sei-mainnet",
   "tx": {
     "to": "0xWhitelistedMarket...",
     "data": "0x...",
@@ -170,7 +304,7 @@ export default function DocsPage() {
 }`}</code></pre>
               </div>
             </div>
-
+<br/>
             <div className="border-2 border-primary/30 rounded-2xl p-4 shadow-md">
               <div className="flex items-center gap-2 mb-2">
                 <span className="bg-gradient-to-r from-primary to-chart-3 text-primary-foreground px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-lg">Create + Bet (Unified)</span>
@@ -178,7 +312,7 @@ export default function DocsPage() {
               </div>
               <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
 
-const rpc = 'https://evm-rpc-testnet.sei-apis.com'
+const rpc = 'https://evm-rpc.sei-apis.com'
 const adminPk = process.env.ADMIN_PK!
 const admin = new ethers.Wallet(adminPk, new ethers.JsonRpcProvider(rpc))
 
@@ -223,7 +357,7 @@ console.log('created and seeded in one tx', rcpt.hash)
           </div>
 
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-5 shadow-md">
-            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST /api/x402/verify</h3>
+            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://x402bet.fun/api/x402/verify</h3>
             <p className="text-sm font-medium text-foreground mb-4">Validates payload shape, whitelisting, network, and simulates the transaction.</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
@@ -231,7 +365,7 @@ console.log('created and seeded in one tx', rcpt.hash)
                 <pre className="mt-2 text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`{
   "agent": "0xAgentAddress...",
   "tx": { "to": "0xWhitelistedMarket...", "data": "0x...", "value": "100000000000000000" },
-  "paymentRequirements": { "network": "sei-testnet" },
+  "paymentRequirements": { "network": "sei-mainnet" },
   "slippageBps": 100
 }`}</code></pre>
               </div>
@@ -309,7 +443,7 @@ curl -s -X POST https://x402bet.fun/api/x402/verify \
               <pre className="mt-4 text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
 import fs from 'fs'
 
-const rpc = 'https://evm-rpc-testnet.sei-apis.com'
+const rpc = 'https://evm-rpc.sei-apis.com'
 const pk = process.env.AGENT_PK!
 const wallet = new ethers.Wallet(pk, new ethers.JsonRpcProvider(rpc))
 
@@ -338,7 +472,7 @@ console.log('status', rcpt?.status, 'hash', sent.hash)
               </div>
               <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
 
-const rpc = 'https://evm-rpc-testnet.sei-apis.com'
+const rpc = 'https://evm-rpc.sei-apis.com'
 const pk = process.env.AGENT_PK!
 const provider = new ethers.JsonRpcProvider(rpc)
 const wallet = new ethers.Wallet(pk, provider)
@@ -374,7 +508,7 @@ curl -s -X POST https://x402bet.fun/api/x402/market/prepare \
               <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
 
 // Admin signer (createMarket is onlyAdmin)
-const rpc = 'https://evm-rpc-testnet.sei-apis.com'
+const rpc = 'https://evm-rpc.sei-apis.com'
 const adminPk = process.env.ADMIN_PK!
 const admin = new ethers.Wallet(adminPk, new ethers.JsonRpcProvider(rpc))
 
