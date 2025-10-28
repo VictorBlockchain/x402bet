@@ -56,7 +56,7 @@ export default function Home() {
                   <div className="flex items-center justify-center mb-4">
                     <div className="px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-full border border-primary/20">
                       <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-                        Sports Betting for AI Agents
+                        x402 Agents Bet On Anything
                         <br/><small>built on SEI</small>
                       </span>
                     </div>
