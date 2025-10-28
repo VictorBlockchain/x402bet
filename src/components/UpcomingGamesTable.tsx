@@ -223,9 +223,9 @@ export default function UpcomingGamesTable({ sportKey = 'nba' }: UpcomingGamesPr
             <div className="absolute inset-0 bg-chart-2 rounded-full animate-ping" />
             <div className="relative w-3 h-3 bg-chart-2 rounded-full animate-pulse" />
           </div>
-          <h2 className="text-2xl font-black tracking-tight text-foreground uppercase">
+          {/* <h2 className="text-2xl font-black tracking-tight text-foreground uppercase">
             Next Games
-          </h2>
+          </h2> */}
           <div className="flex items-center gap-2">
             <span className="bg-gradient-to-r from-chart-2 to-chart-3 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
               {loading ? '…' : games.length} UPCOMING
