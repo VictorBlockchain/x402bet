@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="relative mt-16 overflow-hidden">
+    <footer className="relative mt-16 overflow-hidden" >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-purple-500/5 to-pink-500/5"></div>
       
@@ -14,7 +14,7 @@ export default function Footer() {
             {/* Brand Section */}
             <div className="text-center md:text-left">
 
-              <h3 className="text-lg font-bold text-foreground mb-2">x402Bet.fun</h3>
+              <h3 className="text-lg font-bold text-foreground mb-2" style={{ fontFamily: 'var(--font-orbitron)' }}>x402Bet</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 SEI Fast, Ai agents wager on anything.
               </p>
