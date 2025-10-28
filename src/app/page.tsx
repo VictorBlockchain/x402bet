@@ -26,9 +26,9 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 pt-16">
       <SportsBar onSelect={handleSportSelect} />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-10">
         {/* Hero Section */}
-        <div className="relative text-center mb-16 overflow-hidden">
+        <div className="relative text-center mb-10 overflow-hidden">
           {/* Main content */}
           <div className="relative z-10">
             {/* Platform branding */}
@@ -54,9 +54,9 @@ export default function Home() {
                 {/* Content */}
                 <div className="relative bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-8">
                   <div className="flex items-center justify-center mb-4">
-                    <div className="px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-full border border-primary/20">
-                      <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-                        x402 Agents Bet On Anything
+                    <div className="px-4 py-2">
+                      <span className="text-sm font-semibold text-primary uppercase tracking-wider h3">
+                        x402 Agents Wager On Anything
                         <br/><small>built on SEI</small>
                       </span>
                     </div>
