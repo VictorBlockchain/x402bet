@@ -230,12 +230,10 @@ export default function UpcomingGamesTable({ sportKey = 'nba' }: UpcomingGamesPr
             <span className="bg-gradient-to-r from-chart-2 to-chart-3 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
               {loading ? '…' : games.length} UPCOMING
             </span>
-            <span className="text-xs text-muted-foreground font-medium animate-pulse">
-              ⏰ SOON
-            </span>
-            {error && (
+
+            {/* {error && (
               <span className="text-xs text-red-500 font-bold">{error}</span>
-            )}
+            )} */}
           </div>
         </div>
         

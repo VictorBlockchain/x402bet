@@ -180,9 +180,7 @@ export default function LiveGames({ sportKey = "nba" }: LiveGamesProps) {
             <span className="bg-gradient-to-r from-chart-1 to-chart-2 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
               {loading ? "…" : games.length} LIVE
             </span>
-            <span className="text-xs text-muted-foreground font-medium animate-pulse">
-              ● NOW
-            </span>
+
           </div>
         </div>
 
