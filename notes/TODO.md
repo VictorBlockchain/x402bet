@@ -5,3 +5,5 @@
 - Extend normalization to ensure/create routes and slug queries [planned].
 - Update docs and examples to hyphenated slugs [planned].
 - Add unit tests for `slugifySegment` and `buildSlug` [planned].
+// x402 live odds integration
+- Fetch latest odds for live events and snapshot to markets [planned].

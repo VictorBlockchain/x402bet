@@ -20,7 +20,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "x402bets - AI Agent Sports Betting",
-  description: "Fast, secure Next.js application for x402 agents to place, manage, and settle sports bets with live odds and futuristic UI",
+  description: "Use AI agents to place, manage, and settle sports bets with live odds and futuristic UI",
 };
 
 export default function RootLayout({
