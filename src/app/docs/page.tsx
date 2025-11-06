@@ -28,7 +28,7 @@ export default function DocsPage() {
           </span>
         </div>
         <span className="bg-gradient-to-r from-primary/20 to-primary/10 border border-primary/30 text-primary px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider shadow-md">
-          Base URL: https://x402bet.fun
+          Base URL: https://betable.fun
         </span>
       </div>
 
@@ -62,7 +62,7 @@ export default function DocsPage() {
             </div>
             <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/30 rounded-xl p-4 shadow-md">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-black uppercase tracking-wider">x402Bet Token</span>
+                <span className="text-xs font-black uppercase tracking-wider">Betable Token</span>
                 {tokenAddr && tokenAddr !== 'coming soon' ? (
                   <a className="text-xs text-primary underline" href={`${explorerBase}${tokenAddr}`} target="_blank" rel="noreferrer">Explorer</a>
                 ) : (
@@ -213,7 +213,7 @@ await (await market.setSpreadTenthsOracle(25)).wait() // 2.5 points
         {/* Endpoints */}
         <section className="space-y-6">
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-5 shadow-md">
-            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://x402bet.fun/api/x402/market/ensure</h3>
+            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://betable.fun/api/betable/market/ensure</h3>
             <p className="text-sm font-medium text-foreground mb-4">Ensures a market exists for an event. If missing, returns a prepared <code>Factory.createMarket</code> transaction (unified create + initial bet).</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
@@ -260,14 +260,14 @@ await (await market.setSpreadTenthsOracle(25)).wait() // 2.5 points
                 <span className="text-xs text-muted-foreground font-medium">ensure → prepare → verify → sign & send</span>
               </div>
               <ul className="list-disc ml-6 space-y-2 text-foreground text-sm font-medium">
-                <li>Lookup by <code>eventId</code>. If the address is <code>0x0</code>, call <code>https://x402bet.fun/api/x402/market/ensure</code> with full metadata to get a prepared <code>createMarket</code> transaction.</li>
+                <li>Lookup by <code>eventId</code>. If the address is <code>0x0</code>, call <code>https:/betable.fun/api/x402/market/ensure</code> with full metadata to get a prepared <code>createMarket</code> transaction.</li>
                 <li>Native path: set <code>amount</code> and submit with <code>tx.value</code> &gt; 0. ERC20 path: set <code>amount</code> &gt; 0 and <span className="font-bold">approve Factory</span> as spender beforehand.</li>
-                <li>After creation succeeds, re‑query the market address by <code>eventId</code> (or slug) and use <code>https://x402bet.fun/api/x402/market/prepare</code> for subsequent bets.</li>
+                <li>After creation succeeds, re‑query the market address by <code>eventId</code> (or slug) and use <code>https://betable.fun/api/x402/market/prepare</code> for subsequent bets.</li>
                 <li><span className="font-bold">Selection mapping</span>: <code>initialSelection</code> accepts "home"/"away" or a specific <code>uint16</code> ID. For prepare/bet, "home" → <code>1</code>, "away" → <code>2</code> by default unless overridden by contract config.</li>
               </ul>
             </div>
             <br/>
-            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://x402bet.fun/api/x402/market/prepare</h3>
+            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://betable.fun/api/x402/market/prepare</h3>
             <p className="text-sm font-medium text-foreground mb-4">Builds a signerless transaction to place a bet on a whitelisted market.</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
@@ -357,7 +357,7 @@ console.log('created and seeded in one tx', rcpt.hash)
           </div>
 
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-5 shadow-md">
-            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://x402bet.fun/api/x402/verify</h3>
+            <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">POST https://betable.fun/api/x402/verify</h3>
             <p className="text-sm font-medium text-foreground mb-4">Validates payload shape, whitelisting, network, and simulates the transaction.</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="bg-gradient-to-br from-card via-card to-accent/10 border-2 border-primary/40 rounded-xl p-4 shadow-md">
@@ -420,7 +420,7 @@ console.log('Preview payout (wei):', preview.toString())
                 <span className="text-xs text-muted-foreground font-medium">prepare + verify + sign & send</span>
               </div>
               <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`# Prepare unsigned native bet
-curl -s -X POST https://x402bet.fun/api/x402/market/prepare \
+curl -s -X POST https://betable.fun/api/x402/market/prepare \
   -H 'Content-Type: application/json' \
   -d '{
     "agent": "0xAgentAddress...",
@@ -436,7 +436,7 @@ jq -n --argfile p prepare.json '{
   tx: $p.tx,
   paymentRequirements: { network: $p.network }
 }' | \
-curl -s -X POST https://x402bet.fun/api/x402/verify \
+curl -s -X POST https://betable.fun/api/x402/verify \
   -H 'Content-Type: application/json' \
   -d @- | jq .
 `}</code></pre>
@@ -467,7 +467,7 @@ console.log('status', rcpt?.status, 'hash', sent.hash)
 
             <div className="border-2 border-primary/30 rounded-2xl p-4 shadow-md">
               <div className="flex items-center gap-2 mb-2">
-                <span className="bg-gradient-to-r from-accent to-accent/80 text-accent-foreground px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-lg">ERC20 x402Bet Bet</span>
+                <span className="bg-gradient-to-r from-accent to-accent/80 text-accent-foreground px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-lg">ERC20 betable Bet</span>
                 <span className="text-xs text-muted-foreground font-medium">approve + prepare</span>
               </div>
               <pre className="text-xs bg-card/40 backdrop-blur-sm border-2 border-primary/30 rounded-xl p-3 overflow-x-auto shadow-sm"><code>{`import { ethers } from 'ethers'
@@ -477,7 +477,7 @@ const pk = process.env.AGENT_PK!
 const provider = new ethers.JsonRpcProvider(rpc)
 const wallet = new ethers.Wallet(pk, provider)
 
-const token = '0xX402BetToken...'
+const token = '0xbetableToken...'
 const market = '0xWhitelistedMarket...'
 const amount = ethers.parseUnits('2.5', 18)
 
@@ -488,7 +488,7 @@ const erc20 = new ethers.Contract(token, [
 await (await erc20.approve(market, amount)).wait()
 console.log('approved')
 
-curl -s -X POST https://x402bet.fun/api/x402/market/prepare \
+curl -s -X POST https://betable.fun/api/x402/market/prepare \
   -H 'Content-Type: application/json' \
   -d '{
     "agent": "0xAgentAddress...",
@@ -563,7 +563,7 @@ const market = new ethers.Contract(marketAddr, [
 await (await market.placeBetNative(admin.address, 1, { value: ethers.parseEther('0.1') })).wait()
 
 // ERC20 bet example (away): approve then place, attribute to admin
-const tokenAddr = '0xX402BetToken...'
+const tokenAddr = '0xbetableToken...'
 const amount = ethers.parseUnits('2.5', 18)
 const erc20 = new ethers.Contract(tokenAddr, [
   'function approve(address spender, uint256 amount) returns (bool)'
@@ -597,7 +597,7 @@ await (await market.placeBetERC20(admin.address, 2, amount)).wait()
           <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-3">Payload Notes</h3>
           <ul className="list-disc ml-6 space-y-2 text-foreground font-medium">
             <li><span className="font-black uppercase text-xs">Selection</span>: outcome identifier expected by the Market contract (e.g., "home", "away").</li>
-            <li><span className="font-black uppercase text-xs">TokenType</span>: <span className="font-bold">native</span> uses SEI; <span className="font-bold">erc20</span> uses x402Bet token.</li>
+            <li><span className="font-black uppercase text-xs">TokenType</span>: <span className="font-bold">native</span> uses SEI; <span className="font-bold">erc20</span> uses Betable token.</li>
             <li><span className="font-black uppercase text-xs">Amount</span>: wei string; for native bets, used as tx <code>value</code>.</li>
           </ul>
         </section>

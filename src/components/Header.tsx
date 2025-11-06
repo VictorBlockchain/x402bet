@@ -18,7 +18,7 @@ export default function Header() {
             className="bg-white border-1 border-green-500 text-primary px-3 py-1.5 rounded-xl text-xs font-black tracking-wider shadow-md hover:scale-110 transition-transform"
             style={{ fontFamily: 'var(--font-orbitron)' }}
           >
-            x402Bet
+            Betable.fun
           </Link>
         </div>
 

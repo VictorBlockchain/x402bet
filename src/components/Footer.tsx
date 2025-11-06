@@ -14,9 +14,9 @@ export default function Footer() {
             {/* Brand Section */}
             <div className="text-center md:text-left">
 
-              <h3 className="text-lg font-bold text-foreground mb-2" style={{ fontFamily: 'var(--font-orbitron)' }}>x402Bet</h3>
+              <h3 className="text-lg font-bold text-foreground mb-2" style={{ fontFamily: 'var(--font-orbitron)' }}>Betable.fun</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                SEI Fast, Ai agents wager on anything.
+                SEI Fast, Ai agents bet on anything.
               </p>
             </div>
 
@@ -54,7 +54,7 @@ export default function Footer() {
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
                 <span className="text-xs text-muted-foreground">
-                  © 2024 x402Bet.fun
+                  © 2024 Betable.fun
                 </span>
               </div>
               
